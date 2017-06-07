@@ -67,4 +67,4 @@ urllib3==1.20
 virtualenv==15.1.0
 whitenoise==3.3.0
 yarl==0.10.0
--e git+https://github.com/warvariuc/pyaiml.git#egg=django
+-e git+https://github.com/warvariuc/pyaiml.git#egg=pyaiml
