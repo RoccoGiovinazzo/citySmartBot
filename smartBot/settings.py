@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'smartBot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'depk3711m862o4',                      # Or path to database file if using sqlite3.
-        'USER': 'gnzmgwapohusen',                      # Not used with sqlite3.
-        'PASSWORD': '250cb5a58a0315646e142f7f87ef055d8e1b89ad352f02d18f3036a4cb26feee',                  # Not used with sqlite3.
-        'HOST': 'ec2-54-225-236-102.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': 'd8ikh71pefmmod',                      # Or path to database file if using sqlite3.
+        'USER': 'qrxzlshqycvlxo',                      # Not used with sqlite3.
+        'PASSWORD': '6df43d48771ab55dcc65f5516c480d6a784d95e0b686851f0d3dd64feb8d97f2',                  # Not used with sqlite3.
+        'HOST': 'ec2-107-20-226-93.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
