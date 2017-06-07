@@ -1,0 +1,153 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}{% endblock %}
+    <link href="/static/jqueryui1_11_4/themes/ice-ware/jquery-ui.css" rel="stylesheet"/>
+    <link href="/static/jqueryui1_11_4/themes/ice-ware/theme.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/static/jqueryui1_11_4/external/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/jqueryui1_11_4/jquery-ui.js"></script>
+    <!--script type="text/javascript" src="/static/account/base.js"></script-->
+    <style type="text/css">
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #menu strong {
+        display: none;
+      }
+      #menu ul {
+        margin: 0;
+        padding: 0;
+      }
+      #menu li {
+        display: inline-block;
+      }
+      #menu li a {
+        text-decoration: none;
+        margin-right: 1em;
+        padding: .2em 1em;
+        background: #333;
+        border-radius: .5em;
+      }
+      .vcenter-out {
+        display: table;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+      .vcenter-mid {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .vcenter-in {
+        max-width: 35em;
+        margin: auto;
+      }
+      fieldset div label {
+        white-space: nowrap;
+      }
+      fieldset div label:last-child {
+        margin-bottom: 1em;
+      }
+      .socialaccount_ballot {
+        text-align: center;
+      }
+      ul.socialaccount_providers {
+	     background: url('/static/images/fb_200.png') no-repeat center top; 
+	     box-shadow: 2px 2px 8px rgba(0,0,0,.7); */
+	     border-radius: 5px; 
+	     width: 198px; 
+	     height: 37px; 
+	     margin: 80px auto; 
+	     overflow: hidden; 
+      }
+      label {
+        width: 8em;
+        display: inline-block;
+      }
+      .primaryAction {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vcenter-out">
+      <div class="vcenter-mid">
+        <div class="vcenter-in">
+          <h3></h3>
+          <div>
+            {% block body %}
+
+            {% if messages and False%}
+            <div>
+              <strong>Messages:</strong>
+              <ul>
+                {% for message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+
+            <div id="menu">
+              <strong>Menu:</strong>
+              <ul>
+                {% if user.is_authenticated %}
+                <li id="changeemail"><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                <li id="signout"><a href="{% url 'account_logout' %}">Sign Out</a></li>
+                {% else %}
+                <li id="signin"><a href="{% url 'account_login' %}">Sign In</a></li>
+                <li id="signup"><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                {% endif %}
+                
+              </ul>
+            </div>
+          
+            <div id="content">
+              <h3></h3>
+              <div>{% block content %}{% endblock %}</div>
+            </div>
+            {% endblock %}
+            {% block extra_body %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="application/javascript">
+    {
+      var $c = $(".vcenter-in"),
+          $h1 = $("#content").find("div > h1");
+      if (window.location.href.indexOf('/password/change') > -1 ||
+          window.location.href.indexOf('/password/set') > -1) {
+        $h1.after($('<p>{% trans "Username (or e-mail) and password can be used at the login screen when NOT logging in via social sites." %}</p>'));
+        $h1.after($('<p>{% trans "User:" %} {{ user.username }} {% if user.first_name %}({{ user.first_name }} {{ user.last_name }}){% endif %}</p>'));
+      }
+      if (window.location.href.indexOf('/accounts/logout') > -1) $("#signout").hide();
+      if (window.location.href.indexOf('/accounts/email') > -1) $("#changeemail").hide();
+      if (window.location.href.indexOf('/accounts/login') > -1) $("#signin").hide();
+      if (window.location.href.indexOf('/accounts/signup') > -1) $("#signup").hide();
+
+      $c.children("h3").html($h1.html());
+      $h1.remove();
+      $c.accordion({heightStyle: "content", collapsible: false});
+
+      var $socp = $("ul.socialaccount_providers");
+      $socp.find('li > a').each(function(idx, item) {
+        var $itm = $(item),
+            txt = $itm.text();
+        $itm.html($('<img src="/static/account/' + txt + '.svg"/>'));
+        console.log($(item).html());
+      });
+      $("input").addClass("ui-corner-all");
+      $("button, .secondaryAction, [type='submit']").button();
+      $("form").prepend($("<hr/>"));
+      $socp.parent().css("text-align", "center");
+    }
+  </script>
+</html>

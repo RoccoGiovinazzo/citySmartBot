@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if request.user.is_authenticated %}Logged In{% else %}Not Logged In{% endif %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+     &nbsp;
+      &nbsp;
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<STYLE>
+@media only screen and (max-width: 1250px) {
+tr { 
+	font-size: 16px; 
+	}
+table#table1 {
+    width:50%; 
+    margin-left:25%; 
+    margin-right:25%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+tr { 
+	font-size: 12px; 
+	}
+table#table1 {
+    width:90%; 
+    margin-left:5%; 
+    margin-right:5%;
+  }
+}
+
+</STYLE>
+</head>
+<body class="{% if request.user.is_authenticated %}logged-in{% else %}logged-out{% endif %}">
+ &nbsp;
+{% if request.user.is_authenticated %}
+	
+    
+    {% if request.user.first_name or request.user.last_name %}
+    <div class="form_username">
+        <h1 style="color:white;">{{ request.user.first_name }} {{ request.user.last_name }}
+        		<a href="/accounts/logout/" class="pull-right">
+			    	<button type="button">Logout</button>
+			    </a>
+        &nbsp;
+        &nbsp;
+        
+        </h1>
+         &nbsp;
+         &nbsp;
+         &nbsp;
+    
+    <div class="form_table1">
+		<table style="margin-bottom:50px" ALIGN="center">
+			<thead>
+			<th>Name of preference</th>
+			<th>Address</th>
+			<th>Latitude</th>
+			<th>Longitude</th> 
+		</thead>	
+		<tbody>		
+			{% for p in preferences %}
+		
+			<tr>
+	    		<td>{{ p.label }}</td>
+	    		<td>{{ p.address }}</td>
+	    		<td>{{ p.lat }}</td>
+	    		<td>{{ p.lon }}</td>
+	  		</tr>
+	  	
+			{% endfor %}
+		</tbody>	
+		</table>
+	
+	</div>
+	<div class="form_table2" ALIGN="center">
+		<table  >
+		<thead>
+			<th>Last Command</th>
+			<th>Hour and Date</th>
+		</thead>
+		<tbody>
+			{% for c in cronology %}
+					
+				<tr>
+		    		<td>{{ c.command }}</td>
+		    		<td>{{ c.date }}</td>
+		  		</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
+	{% else %}
+        {{ request.user.username }}
+    {% endif %}
+    
+{% else %}
+    <a href="/accounts/login/" class="pull-right">Login</a>
+	</div>
+{% endif %}
+</body>
+</html>
