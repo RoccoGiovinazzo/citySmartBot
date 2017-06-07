@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['amsterdamsmartbot.herokuapp.com']
 
-dependency_links=['https://github.com/warvariuc/pyaiml#egg=package-1.0']
 # Application definition
 
 INSTALLED_APPS = [
@@ -84,10 +83,10 @@ WSGI_APPLICATION = 'smartBot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'd8ikh71pefmmod',                      # Or path to database file if using sqlite3.
-        'USER': 'qrxzlshqycvlxo',                      # Not used with sqlite3.
-        'PASSWORD': '6df43d48771ab55dcc65f5516c480d6a784d95e0b686851f0d3dd64feb8d97f2',                  # Not used with sqlite3.
-        'HOST': 'ec2-107-20-226-93.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': 'daef0tdior8t8p',                      # Or path to database file if using sqlite3.
+        'USER': 'biqbozppirgeav',                      # Not used with sqlite3.
+        'PASSWORD': 'ce3b49cb4627592d88df6158f653e1411c2d5ddcc6ae7dde2f79bd9d186d74e1',                  # Not used with sqlite3.
+        'HOST': 'ec2-23-21-220-48.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
