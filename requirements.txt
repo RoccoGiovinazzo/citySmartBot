@@ -37,7 +37,7 @@ oauthlib==2.0.2
 pandas==0.20.1
 patterns==0.3
 psycopg2==2.7.1
-PyAIML==0.8.7
+
 pyexcel==0.4.5
 pyexcel-io==0.3.3
 PyJWT==1.4.2
