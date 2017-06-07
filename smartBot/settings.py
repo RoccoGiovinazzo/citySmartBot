@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['amsterdamsmartbot.herokuapp.com']
 
-
+dependency_links=['https://github.com/warvariuc/pyaiml#egg=package-1.0']
 # Application definition
 
 INSTALLED_APPS = [
