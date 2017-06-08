@@ -45,3 +45,9 @@ def checkPreferences(utente, text, bot, update):
         if p.label == text:
             return True
     return False
+
+def deletePreference(chat_id, labelName):
+    preferences = Preference.objects.filter(bot_user=chat_id)
+    for p in preferences:
+        if p.label == labelName:
+            Preference.objects.get(id=p.id).delete()

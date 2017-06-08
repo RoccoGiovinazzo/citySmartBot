@@ -63,12 +63,12 @@ table#table1 {
 			{% for p in preferences %}
 		
 			<tr>
-	    		<td>{{ p.label }}</td>
-	    		<td>{{ p.address }}</td>
-	    		<td>{{ p.lat }}</td>
-	    		<td>{{ p.lon }}</td>
-	  		</tr>
-	  	
+	    		<form method="POST" action=""><input type='hidden'/>{% csrf_token %} 
+	        		<td>{{ p.label }}</td>
+	        		<td>{{ p.address }}</td>
+	        		<td><input type="hidden" name="label" value={{ p.label }}><input type='submit' value='Delete'/></td>
+	       		</form>
+    		</tr>	  	
 			{% endfor %}
 		</tbody>	
 		</table>
