@@ -25,7 +25,7 @@ import builtins
 import aimlHandler
 
 
-TOKEN = "378459265:AAHoo4AuYS73vd9O4ozQi-5B6r5z-U6px0k"
+TOKEN = "343706215:AAEaTYl_qXHsPxKMwC5rXRnrnESKEuThT2Y"
 gmaps = googlemaps.Client(key='AIzaSyCHw4CGzrZOpOleKM3KCPPMI7jJV_MDkDI')
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 #WEBAPP = "145.94.189.32:8000/accounts/login"
