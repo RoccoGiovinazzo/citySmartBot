@@ -90,7 +90,7 @@ def getDecoratedMap(bot, update, closestParkings, data, distances):
     fileName = str(update.message.chat_id) + '.png'
     plt.savefig(fileName, bbox_inches='tight')
     baseDir = settings.BASE_DIR
-    picture = open(baseDir + '\\' + fileName, 'rb')
+    picture = open(baseDir + '/' + fileName, 'rb')
     #img=urllib.request.urlopen(baseDir + '\foo.png').read()
     bot.sendPhoto(chat_id=update.message.chat_id, photo = picture)
     print(ax)
