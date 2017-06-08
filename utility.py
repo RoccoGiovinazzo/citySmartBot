@@ -12,6 +12,8 @@ from telegram.inlinekeyboardbutton import InlineKeyboardButton
 
 import numpy as np
 import pandas as pd
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from bot.models import User
 from smartBot import settings
