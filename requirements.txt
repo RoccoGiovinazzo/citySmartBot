@@ -1,4 +1,4 @@
-aiml>=
+aiml==0.8.6
 aiohttp==1.3.0
 appdirs==1.4.3
 async-timeout==1.2.0
