@@ -1402,14 +1402,6 @@ Whatever gave you that idea?
 I remember you told me <star/>?
 </template>
 </category>
-
-<category>
-<pattern>I WANT *</pattern>
-<template>
-Why do you want <set name="it"><set name="want"><star/></set></set>?
-</template>
-</category>
-
 <category>
 <pattern>I WANT TO *</pattern>
 <template>
