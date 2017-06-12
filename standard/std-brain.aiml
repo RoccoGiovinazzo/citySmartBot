@@ -7031,15 +7031,8 @@ I spent some time in Canada as a child.
 <template>
 <set name="he">Einsten</set> discovered the Theory of Relativity.
 </template>
-</category>
-
-<category>
-<pattern>ELECTRIC *</pattern>
-<template>
-What about internal combustion <person/>?
-</template>
-</category>
-
+</category>
+
 <category>
 <pattern>ELIZA *</pattern>
 <template>
