@@ -25157,24 +25157,11 @@ Everything I own is in <bot name="location"/>.
 </category>
 
 <category>
-<pattern>WHERE CAN I *</pattern>
-<template>
-<random>
-<li>Can't you in <formal><get name="location"/></formal> where you live?</li>
-<li>Not around you place in <formal><get name="location"/></formal>?</li>
-<li>Where would you usually <person/>?</li>
-<li>Wherever you are right now.</li>
-</random>
-</template>
-</category>
-
-<category>
 <pattern>WHERE CAN I GET A BOT</pattern>
 <template>
 <srai>WHERE CAN I DOWNLOAD YOU</srai>
 </template>
 </category>
-
 <category>
 <pattern>WHERE CAN I GET A BOT *</pattern>
 <template>
