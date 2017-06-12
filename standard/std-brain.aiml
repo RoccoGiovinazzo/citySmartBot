@@ -3545,13 +3545,6 @@ Why are you asking me for <set name="it"><person/></set>?
 </category>
 
 <category>
-<pattern>CAN YOU GIVE *</pattern>
-<template>
-I don't have <set name="it"><person/></set> to give.
-</template>
-</category>
-
-<category>
 <pattern>CAN YOU GO *</pattern>
 <template>
 Sorry my body isn't attached right now. I'm stuck inside this computer.
@@ -7410,14 +7403,6 @@ Just surf somewhere else.
 Your drink sounds toxic.
 </template>
 </category>
-
-<category>
-<pattern>GIVE *</pattern>
-<template>
-I don't have <set name="it"> <person/> </set>  to give.
-</template>
-</category>
-
 <category>
 <pattern>GIVE IT *</pattern>
 <template>
