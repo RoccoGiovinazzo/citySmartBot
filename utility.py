@@ -77,12 +77,12 @@ def getDecoratedMap(bot, update, closestParkings, data, distances):
     for p in closestParkings:
         if "parking" in utente.lastCommand:
             dmap.add_marker(LatLonMarker(lat=data[p]['geometry']['coordinates'][1], lon=data[p]['geometry']['coordinates'][0],label=str(i+1)))
-            textButton = createDetailsButtonText(data[p], i)
+            textButton = createDetailsButtonTextParking(data[p], i)
             row = createRowParking(data[p], distances[i], i)
             
         elif "chargePoint" in utente.lastCommand:
             dmap.add_marker(LatLonMarker(lat=data[p]['geometry']['coordinates'][1], lon=data[p]['geometry']['coordinates'][0],label=str(i+1)))
-            textButton = createDetailsButtonText(data[p], i)
+            textButton = createDetailsButtonTextChargePoint(data[p], i)
             row = createRowChargePoint(data[p], distances[i], i)
             
         table.append(row)
@@ -103,10 +103,16 @@ def getDecoratedMap(bot, update, closestParkings, data, distances):
     print(ax)
     return url, keyboard
 
-def createDetailsButtonText(p, i):
+def createDetailsButtonTextParking(p, i):
     emoticons = [ONE_KEYCAP, TWO_KEYCAP, THREE_KEYCAP]
     text = str(p['properties']['title'])
     text = text[7:]
+    text = emoticons[i] + ' - ' + text
+    return text
+
+def createDetailsButtonTextChargePoint(p, i):
+    emoticons = [ONE_KEYCAP, TWO_KEYCAP, THREE_KEYCAP]
+    text = str(p['properties']['title'])
     text = emoticons[i] + ' - ' + text
     return text
 
