@@ -3,5 +3,5 @@
 <aiml version="1.0">
 <meta name="author" content="Dr. Wallace"/>
 <meta name="language" content="en"/>
-  <category>    <pattern>CAN YOU FIND ME A PARKING</pattern>    <template>Yes i was created to search parkings in Amsterdam</template>  </category>    <category>    <pattern>FIND * PARKING</pattern>    <template>    	<srai>CAN YOU FIND ME A PARKING</srai>    </template>  </category>
+  <category>    <pattern>CAN YOU FIND ME A PARKING</pattern>    <template>Yes i was created to search parkings in Amsterdam</template>  </category>    <category>    <pattern>* FIND * PARKING</pattern>    <template>    	<srai>CAN YOU FIND ME A PARKING</srai>    </template>  </category>    <category>    <pattern>* NEED * PARKING</pattern>    <template>    	<srai>CAN YOU FIND ME A PARKING</srai>    </template>  </category>      <category>    <pattern>* SEARCH * PARKING</pattern>    <template>    	<srai>CAN YOU FIND ME A PARKING</srai>    </template>  </category>      <category>    <pattern>* CHOICE * PARKING</pattern>    <template>    	<srai>CAN YOU FIND ME A PARKING</srai>    </template>  </category>      <category>    <pattern>* CAR PARK</pattern>    <template>    	<srai>CAN YOU FIND ME A PARKING</srai>    </template>  </category>
 </aiml>
