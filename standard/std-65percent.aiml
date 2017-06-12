@@ -619,14 +619,6 @@ Who or what is <star/>?
 Where can I get <star/>?
 </template>
 </category>
-
-<category>
-<pattern>GIVE ME *</pattern>
-<template>
-<srai>I want <star/></srai>
-</template>
-</category>
-
 <category>
 <pattern>GO *</pattern>
 <template>

@@ -8,7 +8,6 @@
 <!-- Load standard AIML set -->
 <learn>std-parking.aiml</learn>
 <learn>std-electricChargePoint.aiml</learn>
-<learn>std-65percent.aiml</learn>
 <learn>std-atomic.aiml</learn>
 <learn>std-botmaster.aiml</learn>
 <learn>std-brain.aiml</learn>
@@ -43,6 +42,7 @@
 <learn>std-that.aiml</learn>
 <learn>std-turing.aiml</learn>
 <learn>std-yesno.aiml</learn>
+<learn>std-65percent.aiml</learn>
 
 </template>
 </category>
