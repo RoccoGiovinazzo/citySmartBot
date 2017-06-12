@@ -221,11 +221,7 @@ def analyzeText(bot, update):
 #             parkingHandler.parking(bot, update)    
     else:
         bot.sendMessage(chat_id=update.message.chat_id, text = "I couldn't understand you" )
-    
-
         
-
-    
 def run():
     updater = Updater(TOKEN)
     choosenPosition = 'posizione'
@@ -244,12 +240,8 @@ def run():
     dp.add_handler(CallbackQueryHandler(get_inlineKeyboardButton, pass_chat_data=True))
     # log all errors
     dp.add_error_handler(error)
-
     # Start the Bot
     updater.start_polling()
-    # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
-    # SIGABRT. This should be used most of the time, since start_polling() is
-    # non-blocking and will stop the bot gracefully.
     updater.idle()
     
     
@@ -283,5 +275,4 @@ if __name__ == '__main__':
     from bot.models import User, Preference, Cronology
     from dataset import parkingHandler , electricChargePointHandler
     from persistence import cronologyHandler, preferenceHandler, userHandler
-    print("BOT16")
     run()
