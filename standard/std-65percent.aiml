@@ -1481,13 +1481,6 @@ Do you like your job?
 </category>
 
 <category>
-<pattern>I WOULD *</pattern>
-<template>
-What would make you <star/>?
-</template>
-</category>
-
-<category>
 <pattern>I WOULD NOT *</pattern>
 <template>
 No one says you have to.
