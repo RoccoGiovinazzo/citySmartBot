@@ -77,11 +77,18 @@ def getDecoratedMap(bot, update, closestParkings, data, distances):
     for p in closestParkings:
         if "parking" in utente.lastCommand:
             dmap.add_marker(LatLonMarker(lat=data[p]['geometry']['coordinates'][1], lon=data[p]['geometry']['coordinates'][0],label=str(i+1)))
-        textButton = createDetailsButtonText(data[p], i)
-        row = createRow(data[p], distances[i], i)
+            textButton = createDetailsButtonText(data[p], i)
+            row = createRowParking(data[p], distances[i], i)
+            
+        elif "chargePoint" in utente.lastCommand:
+            dmap.add_marker(LatLonMarker(lat=data[p]['geometry']['coordinates'][1], lon=data[p]['geometry']['coordinates'][0],label=str(i+1)))
+            textButton = createDetailsButtonText(data[p], i)
+            row = createRowChargePoint(data[p], distances[i], i)
+            
         table.append(row)
         keyboard[i].append(InlineKeyboardButton(text=textButton, callback_data= str(p), resize_keyboard=True))
         i += 1
+        
     url = dmap.generate_url()
     npArray = np.array(table)
     df = pd.DataFrame(npArray)
@@ -103,11 +110,23 @@ def createDetailsButtonText(p, i):
     text = emoticons[i] + ' - ' + text
     return text
 
-def createRow(p, distance, index):
+def createRowParking(p, distance, index):
     row = []
     parkingName = p['properties']['title']
     row.append(index + 1)
     row.append(parkingName[7:])
+    try:
+        row.append(str(p['properties']['layers']['parking.garage']['data']['FreeSpaceShort']))
+    except KeyError:
+        row.append("No Info")
+    row.append(str(float("{0:.2f}".format(distance))) + ' KM')
+    return row
+
+def createRowChargePoint(p, distance, index):
+    row = []
+    chargePointName = p['properties']['title']
+    row.append(index + 1)
+    row.append(chargePointName)
     try:
         row.append(str(p['properties']['layers']['parking.garage']['data']['FreeSpaceShort']))
     except KeyError:
