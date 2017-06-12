@@ -30,7 +30,7 @@ def parking(bot, update):
     custom_keyboard = [[ locationGPS_keyboard], [locationUser_keyboard]]
     addPreferencesKeyboard(custom_keyboard, user)
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard, resize_keyboard=True, one_time_keyboard=True)
-    userHandler.setBotActived(update.message.chat_id, False)
+    userHandler.setUserBotActived(update.message.chat_id, False)
     bot.sendMessage(chat_id=update.message.chat_id, text="Would you mind sharing your location to search the closest parking?", reply_markup=reply_markup)
 
 def calculate_parkings_distance(bot, update, parkings):
