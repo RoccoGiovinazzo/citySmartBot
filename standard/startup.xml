@@ -6,6 +6,8 @@
 <template>
 
 <!-- Load standard AIML set -->
+<learn>std-parking.aiml</learn>
+<learn>std-electricChargePoint.aiml</learn>
 <learn>std-65percent.aiml</learn>
 <learn>std-atomic.aiml</learn>
 <learn>std-botmaster.aiml</learn>
@@ -14,7 +16,6 @@
 <learn>std-dictionary.aiml</learn>
 <learn>std-disconnect.aiml</learn>
 <learn>std-dont.aiml</learn>
-<learn>std-electricChargePoint.aiml</learn>
 <learn>std-errors.aiml</learn>
 <learn>std-gender.aiml</learn>
 <learn>std-geography.aiml</learn>
@@ -27,7 +28,7 @@
 <learn>std-lizards.aiml</learn>
 <learn>std-login.aiml</learn>
 <learn>std-numbers.aiml</learn>
-<learn>std-parking.aiml</learn>
+
 <learn>std-personality.aiml</learn>
 <learn>std-pickup.aiml</learn>
 <learn>std-politics.aiml</learn>

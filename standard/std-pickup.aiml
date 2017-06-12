@@ -24,14 +24,6 @@
 
 
 <category>
-<pattern>FIND *</pattern>
-<template>
-<think><set name="search">unknown</set></think>
-<srai><star/></srai>
-</template>
-</category>
-
-<category>
 <pattern>WHAT IS *</pattern>
 <template>
 <think><set name="search">what</set></think>
@@ -63,7 +55,6 @@
 <li name="search" value="capital">I do not know that capital.</li>
 <li name="search" value="where"><srai>WHEREISIS <star/></srai></li>
 </condition>
-<srai>FIND <star/></srai>
 </template>
 </category>
 
