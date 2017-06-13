@@ -18,7 +18,7 @@ def accountLogin(request):
 def accountLogout(request):
     print('accountLogout')
     template = loader.get_template('login.html')
-    chatId = settings.USER 
+    chatId = request.session['chat_id'] = chatId
     print(chatId)
     print('user authentication')
     context = {
