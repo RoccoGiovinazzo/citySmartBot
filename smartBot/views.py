@@ -8,8 +8,7 @@ def accountLogin(request):
     print('sono qui dentro')
     template = loader.get_template('login.html')
     chatId = request.GET.get('chatId', '')
-    settings.USER = chatId
-    print(chatId)
+    request.session['chat_id'] = chatId
     context = {
         'request': request,
     }
@@ -18,7 +17,7 @@ def accountLogin(request):
 def accountLogout(request):
     print('accountLogout')
     template = loader.get_template('login.html')
-    chatId = request.session['chat_id'] = chatId
+    chatId = settings.USER 
     print(chatId)
     print('user authentication')
     context = {
