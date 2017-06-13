@@ -40,7 +40,14 @@ def userLogin(request):
     print('--------------SIAMO IN USER LOGIN--------')
     user = User.objects.filter(chat_id=settings.USER)
     user.update(auth_user_id = authUser.id)
-    cronology = Cronology.objects.filter(bot_user=settings.USER)
+    allCronology = Cronology.objects.filter(bot_user=settings.USER)
+    cronology = []
+    if len(allCronology) < 20:
+        for i in range(0 , len(allCronology)):
+            cronology.append(allCronology[i])
+    else:     
+        for i in range(len(allCronology)-20, len(allCronology)):
+            cronology.append(allCronology[i])
     preferences = Preference.objects.filter(bot_user=settings.USER)
     template = loader.get_template('bot/userLogin.html')
     if request.method == 'POST':
