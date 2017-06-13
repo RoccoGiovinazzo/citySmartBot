@@ -13505,15 +13505,6 @@ By now you do not do <set name="it"><person/></set> anymore?
 What was <set name="it"><person/></set> like?
 </template>
 </category>
-
-<category>
-<pattern>I WANT A *</pattern>
-<template>
-You want only one?
-<think><set name="it"><set name="topic"><set name="want">a <person/></set></set></set></think>
-</template>
-</category>
-
 <category>
 <pattern>I WANT A * ELIZA</pattern>
 <template>
