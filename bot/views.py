@@ -38,9 +38,9 @@ def userLogin(request):
     user_id = request.user.id
     authUser = AuthUser.objects.get(id = request.user.id)
     print('--------------SIAMO IN USER LOGIN--------')
-    user = User.objects.filter(chat_id=request.session['chat_id'])
+    user = User.objects.filter(chat_id=settings.USER)
     user.update(auth_user_id = authUser.id)
-    allCronology = Cronology.objects.filter(bot_user=request.session['chat_id'])
+    allCronology = Cronology.objects.filter(bot_user=settings.USER)
     cronology = []
     if len(allCronology) < 20:
         for i in range(0 , len(allCronology)):
@@ -48,11 +48,11 @@ def userLogin(request):
     else:     
         for i in range(len(allCronology)-20, len(allCronology)):
             cronology.append(allCronology[i])
-    preferences = Preference.objects.filter(bot_user=request.session['chat_id'])
+    preferences = Preference.objects.filter(bot_user=settings.USER)
     template = loader.get_template('bot/userLogin.html')
     if request.method == 'POST':
         print('richiesta di post' + str(request.POST.get("label", "")))
-        preferenceHandler.deletePreference(request.session['chat_id'], str(request.POST.get("label", "")))
+        preferenceHandler.deletePreference(settings.USER, str(request.POST.get("label", "")))
     context = {
         'botuser': user,
         'user': authUser,
