@@ -231,7 +231,7 @@ def run():
     dp.add_handler(CommandHandler("start", start, pass_args=True, pass_chat_data=True))
     dp.add_handler(CommandHandler("help", start))
     dp.add_handler(CommandHandler("parking", parkingHandler.parking))
-    dp.add_handler(CommandHandler("chargePoint", electricChargePointHandler.chargePoint))
+    dp.add_handler(CommandHandler("chargepoint", electricChargePointHandler.chargePoint))
     dp.add_handler(CommandHandler("talk", talk))
     dp.add_handler(CommandHandler("profile", profile, pass_args=True, pass_chat_data=True))
     dp.add_handler(MessageHandler([Filters.location], getLocation))
