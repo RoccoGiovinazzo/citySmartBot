@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 import utility
 
 def home(request):
@@ -11,4 +11,4 @@ def home(request):
     context = {
         'request': request,
     }
-    return render(request, 'webPage/home.html', context)
+    return render_to_response('webPage/home.html', context , message="MESSAGE DELIVERED")
