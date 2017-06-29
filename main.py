@@ -29,8 +29,6 @@ import atexit
 TOKEN = "343706215:AAEaTYl_qXHsPxKMwC5rXRnrnESKEuThT2Y"
 gmaps = googlemaps.Client(key='AIzaSyCHw4CGzrZOpOleKM3KCPPMI7jJV_MDkDI')
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
-#WEBAPP = "145.94.189.32:8000/accounts/login"
-#WEBAPP = "127.0.0.1:8000/accounts/login"
 WEBAPP = "https://amsterdamsmartbot.herokuapp.com//accounts/login"
 #WEBAPP = "https://amsterdamsmartbot.herokuapp.com//accounts/login"
 choosenPosition = ''

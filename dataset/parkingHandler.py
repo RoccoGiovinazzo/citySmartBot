@@ -17,7 +17,7 @@ import numpy as np
 from persistence import cronologyHandler, userHandler
 from persistence.preferenceHandler import addPreferencesKeyboard
 import utility
-from smartbot.dataset import parkingScraping
+from dataset import parkingScraping
 
 
 
