@@ -13,11 +13,16 @@ from telegram.inlinekeyboardbutton import InlineKeyboardButton
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
+import smtplib
+
 mpl.use('Agg')
+
 import matplotlib.pyplot as plt
+
 from bot.models import User
 from smartBot import settings
-
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 def getEmoticon(b):
     return bytes_to_native_str(b)
@@ -172,3 +177,47 @@ def render_mpl_table(data, col_width=1.0, row_height=0.625, font_size=10,
         else:
             cell.set_width(0.3)
     return ax
+
+def sendMail(sender):
+    you = "lamorte.gerardo@gmail.com"
+    me = "giovinazzorocco@gmail.com"
+    
+    # Create message container - the correct MIME type is multipart/alternative.
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = "Link"
+    msg['From'] = me
+    msg['To'] = you
+    
+    # Create the body of the message (a plain-text and an HTML version).
+    text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttp://www.python.org"
+    html = """\
+    <html>
+      <head></head>
+      <body>
+        <p>Hi!<br>
+           How are you?<br>
+           Here is the <a href="http://www.python.org">link</a> you wanted.
+        </p>
+      </body>
+    </html>
+    """
+    
+    # Record the MIME types of both parts - text/plain and text/html.
+    part1 = MIMEText(text, 'plain')
+    part2 = MIMEText(html, 'html')
+    
+    # Attach parts into message container.
+    # According to RFC 2046, the last part of a multipart message, in this case
+    # the HTML message, is best and preferred.
+    msg.attach(part1)
+    msg.attach(part2)
+    
+    # Send the message via local SMTP server.
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls()
+    s.login('lamorte.gerardo@gmail.com','forzalazio12')
+    # sendmail function takes 3 arguments: sender's address, recipient's address
+    # and message to send - here it is sent as one string.
+    s.sendmail(me, you, msg.as_string())
+    print("mail sent")
+    s.quit()
