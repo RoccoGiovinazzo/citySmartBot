@@ -100,7 +100,10 @@ def sendMessageForSingleParking(bot, update, index):
     # utente.lastCommand = "location"
     r = urllib.request.urlopen(urld)
     data = json.loads(r.read().decode(r.info().get_param('charset') or 'utf-8'))
-    checkParkingCost(data['features'][int(index)]['properties']['title'])
+    reverse_geocode_result = main.gmaps.reverse_geocode((data['features'][int(index)]['geometry']['coordinates'][1], data['features'][int(index)]['geometry']['coordinates'][0]))
+    addressName = reverse_geocode_result[0]['address_components'][1]['short_name'] + " " + reverse_geocode_result[0]['address_components'][0]['short_name']
+    print(addressName)
+    parkingCost = checkParkingCost(addressName)
     message = "<b>The parking is: </b>" + data['features'][int(index)]['properties']['title'] + "\n"
     try:
         message += "<b>Free short parkings: </b>" + str(data['features'][int(index)]['properties']['layers']['parking.garage']['data']['FreeSpaceShort']) + "\n"
@@ -110,8 +113,9 @@ def sendMessageForSingleParking(bot, update, index):
         message += "<b>Free long parkings: </b>" + str(data['features'][int(index)]['properties']['layers']['parking.garage']['data']['FreeSpaceLong']) + "\n"
     except KeyError:
         message += "<b>Free long parkings: </b>" + '---' + "\n"
-    reverse_geocode_result = main.gmaps.reverse_geocode((data['features'][int(index)]['geometry']['coordinates'][1], data['features'][int(index)]['geometry']['coordinates'][0]))
-    message += "<b>The address of the parking is: </b>" + reverse_geocode_result[0]['formatted_address']
+    message += "<b>The address of the parking is: </b>" + reverse_geocode_result[0]['formatted_address'] + "\n"
+    if parkingCost is not "":
+        message += "<b>Cost: </b>" + parkingCost 
     #bot.sendMessage(chat_id=update.message.chat_id, text=message)
     bot.sendLocation(update.message.chat_id, data['features'][int(index)]['geometry']['coordinates'][1], data['features'][int(index)]['geometry']['coordinates'][0]) 
     bot.sendMessage(chat_id=update.message.chat_id, text = message, parse_mode='HTML')
@@ -137,7 +141,10 @@ def checkParkingCost(parkingName):
     listOfCost = parkingScraping.getParkingsCost()
     for singleParking in listOfCost:
         ratio = similar(singleParking[0], parkingName)
-        print(ratio) 
+        if ratio >= 0.90:
+            print(ratio)
+            cost = singleParking[1]
+            return cost 
     return cost
 
 def similar(a, b):
