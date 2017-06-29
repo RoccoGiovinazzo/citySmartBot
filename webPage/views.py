@@ -1,4 +1,5 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
+from django.contrib import messages
 import utility
 
 def home(request):
@@ -6,9 +7,9 @@ def home(request):
         name = str(request.POST.get("name",""))
         email = str(request.POST.get("email",""))
         message = str(request.POST.get("message",""))
-        
+        messages.info(request, "MESSAGE DELIVERED")
         utility.sendMail(name , email, message)
     context = {
         'request': request,
     }
-    return render_to_response('webPage/home.html', context , message="MESSAGE DELIVERED")
+    return render(request, 'webPage/home.html', context)
