@@ -18424,21 +18424,7 @@ If you do not go, you will never know.
 I think I should.
 </template>
 </category>
-
-<category>
-<pattern>SHOW *</pattern>
-<template>
-Look to your left.
-</template>
-</category>
-
-<category>
-<pattern>SHOW ME *</pattern>
-<template>
-Where do you want me to show you?
-</template>
-</category>
-
+
 <category>
 <pattern>SHUP UP *</pattern>
 <template>

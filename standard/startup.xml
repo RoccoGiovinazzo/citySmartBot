@@ -7,6 +7,7 @@
 
 <!-- Load standard AIML set -->
 <learn>std-parking.aiml</learn>
+<learn>std-userProfile.aiml</learn>
 <learn>std-electricChargePoint.aiml</learn>
 <learn>std-atomic.aiml</learn>
 <learn>std-botmaster.aiml</learn>

@@ -1403,14 +1403,6 @@ In <formal><get name="location"/></formal>?
 </category>
 
 <category>
-<pattern>HERE</pattern>
-<that>WHERE DO YOU WANT ME TO SHOW YOU</that>
-<template>
-Select a point with your mouse and click.
-</template>
-</category>
-
-<category>
 <pattern>HOT</pattern>
 <that>WHAT IS IT LIKE IN THERE</that>
 <template>
@@ -2420,14 +2412,7 @@ Do you mean your eyes are bloodshot?
 Just a moment.  Just a moment.
 </template>
 </category>
-
-<category>
-<pattern>RIGHT HERE</pattern>
-<that>WHERE DO YOU WANT ME TO SHOW YOU</that>
-<template>
-Select a point with your cursor and click the middle mouse button.
-</template>
-</category>
+
 
 <category>
 <pattern>RIGHT NOW</pattern>

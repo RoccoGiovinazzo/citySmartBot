@@ -27,11 +27,12 @@ SECRET_KEY = 'qiiobvi4f1!h7^3^q_0%@)me5g3k&-wg2ydq#(^fepraf(8h+8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['amsterdamsmartbot.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'webPage.apps.WebpageConfig',
     'bot.apps.BotConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+
 ]
 
 MIDDLEWARE = [
@@ -62,7 +64,8 @@ ROOT_URLCONF = 'smartBot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'allauth')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'allauth') ,
+                  os.path.join(BASE_DIR, 'webPage', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,18 +82,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'smartBot.wsgi.application'
 
 
-# Database
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'dsb6qsslf8mdl',                      # Or path to database file if using sqlite3.
-        'USER': 'seisivezhovdla',                      # Not used with sqlite3.
-        'PASSWORD': '0c931ab4c82fffb5731b0caf5acb9e4c32a55eed7d2391ad38ba83bf0c0c4cc0',                  # Not used with sqlite3.
-        'HOST': 'ec2-54-225-107-107.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': 'smartBot',                      # Or path to database file if using sqlite3.
+        'USER': 'pguser',                      # Not used with sqlite3.
+        'PASSWORD': 'pguser',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -133,9 +135,18 @@ STATIC_URL = '/static/'
 AUTHENTICATION_BACKENDS = (
     
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-    
+    'allauth.account.auth_backends.AuthenticationBackend', 
 )
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+SESSION_COOKIE_SECURE = False
+
+SESSION_SAVE_EVERY_REQUEST = True
+
+SESSION_COOKIE_DOMAIN = "192.168.178.12"
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 LOGIN_REDIRECT_URL = '/bot/'
 

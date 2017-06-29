@@ -1,7 +1,7 @@
 '''
 Created on 31 mag 2017
 
-@author: Geko
+@author: Geko - Giovinazzo
 '''
 import json
 import urllib.request
@@ -10,13 +10,14 @@ import telegram
 from telegram.inlinekeyboardbutton import InlineKeyboardButton
 from telegram.inlinekeyboardmarkup import InlineKeyboardMarkup
 from telegram.keyboardbutton import KeyboardButton
-
+from difflib import SequenceMatcher
 from bot.models import User, Cronology, Preference
 import main
 import numpy as np
 from persistence import cronologyHandler, userHandler
 from persistence.preferenceHandler import addPreferencesKeyboard
 import utility
+from smartbot.dataset import parkingScraping
 
 
 
@@ -99,6 +100,7 @@ def sendMessageForSingleParking(bot, update, index):
     # utente.lastCommand = "location"
     r = urllib.request.urlopen(urld)
     data = json.loads(r.read().decode(r.info().get_param('charset') or 'utf-8'))
+    checkParkingCost(data['features'][int(index)]['properties']['title'])
     message = "<b>The parking is: </b>" + data['features'][int(index)]['properties']['title'] + "\n"
     try:
         message += "<b>Free short parkings: </b>" + str(data['features'][int(index)]['properties']['layers']['parking.garage']['data']['FreeSpaceShort']) + "\n"
@@ -121,6 +123,22 @@ def sendMessageForSingleParking(bot, update, index):
 #     no_keyboard = KeyboardButton(text="Find another parking")
 #     custom_keyboard = [[ yes_keyboard], [no_keyboard]]
 #     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard, resize_keyboard=True, one_time_keyboard=True)
-    bot.sendMessage(chat_id=update.message.chat_id, text = 'What do you want to do now?')
+    btn_keyboard1 = KeyboardButton(text="Find another parking")
+    btn_keyboard2 = KeyboardButton(text="Find closest electric charge point")
+    btn_keyboard3 = KeyboardButton(text="Show my profile")
+    btn_keyboard4 = KeyboardButton(text="That's all, thanks")
+    custom_keyboard = [[btn_keyboard1],[btn_keyboard2],[btn_keyboard3], [btn_keyboard4]]
+    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard, resize_keyboard=True, one_time_keyboard=True)
     userHandler.setUserBotActived(update.message.chat_id, True)
-    
+    bot.sendMessage(chat_id = update.message.chat_id, text="What do you want to do now ?", reply_markup=reply_markup)
+
+def checkParkingCost(parkingName):
+    cost = ""
+    listOfCost = parkingScraping.getParkingsCost()
+    for singleParking in listOfCost:
+        ratio = similar(singleParking[0], parkingName)
+        print(ratio) 
+    return cost
+
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()

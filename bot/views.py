@@ -1,7 +1,5 @@
 import sys 
 
-from django.conf import settings
-from django.conf import settings
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.sessions.models import Session 
 from django.http import HttpResponse
@@ -38,9 +36,13 @@ def userLogin(request):
     user_id = request.user.id
     authUser = AuthUser.objects.get(id = request.user.id)
     print('--------------SIAMO IN USER LOGIN--------')
-    user = User.objects.filter(chat_id=settings.USER)
+    #print("ID Session: " + str(request.session.session_key))
+    #print("ID Session: " + str(request.GET))
+    #print("Coockies: " + str(request.COOKIES))
+    chatId = str(request.COOKIES['chatId'])
+    user = User.objects.filter(chat_id=chatId)
     user.update(auth_user_id = authUser.id)
-    allCronology = Cronology.objects.filter(bot_user=settings.USER)
+    allCronology = Cronology.objects.filter(bot_user=chatId)
     cronology = []
     if len(allCronology) < 20:
         for i in range(0 , len(allCronology)):
@@ -48,11 +50,11 @@ def userLogin(request):
     else:     
         for i in range(len(allCronology)-20, len(allCronology)):
             cronology.append(allCronology[i])
-    preferences = Preference.objects.filter(bot_user=settings.USER)
+    preferences = Preference.objects.filter(bot_user=chatId)
     template = loader.get_template('bot/userLogin.html')
     if request.method == 'POST':
         print('richiesta di post' + str(request.POST.get("label", "")))
-        preferenceHandler.deletePreference(settings.USER, str(request.POST.get("label", "")))
+        preferenceHandler.deletePreference(chatId, str(request.POST.get("label", "")))
     context = {
         'botuser': user,
         'user': authUser,

@@ -21,17 +21,18 @@ import telegram
 from telegram.ext import MessageHandler, Filters
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 from telegram.keyboardbutton import KeyboardButton
-import builtins
 import aimlHandler
+from threading import Timer
+import atexit
 
 
-TOKEN = "343706215:AAEaTYl_qXHsPxKMwC5rXRnrnESKEuThT2Y"
+TOKEN = "378459265:AAHoo4AuYS73vd9O4ozQi-5B6r5z-U6px0k"
 gmaps = googlemaps.Client(key='AIzaSyCHw4CGzrZOpOleKM3KCPPMI7jJV_MDkDI')
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 #WEBAPP = "145.94.189.32:8000/accounts/login"
 #WEBAPP = "127.0.0.1:8000/accounts/login"
-#WEBAPP = "145.94.190.106:8000/accounts/login"
-WEBAPP = "https://amsterdamsmartbot.herokuapp.com//accounts/login"
+WEBAPP = "192.168.178.12:8000/accounts/login"
+#WEBAPP = "https://amsterdamsmartbot.herokuapp.com//accounts/login"
 choosenPosition = ''
 lastUpdate = ""
 #builtins.botActived =True
@@ -41,6 +42,27 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 kernel = aimlHandler.initializeBot()
 
+class Repeat(object):
+
+    count = 0
+    @staticmethod
+    def repeat(rep, delay, func):
+        "repeat func rep times with a delay given in seconds"
+
+        if Repeat.count < rep:
+            # call func, you might want to add args here
+            func()
+            Repeat.count += 1
+            # setup a timer which calls repeat recursively
+            # again, if you need args for func, you have to add them here
+            timer = Timer(delay, Repeat.repeat, (rep, delay, func))
+            # register timer.cancel to stop the timer when you exit the interpreter
+            atexit.register(timer.cancel)
+            timer.start()
+
+def pingHeroku():
+    urllib.request.urlopen("https://amsterdamsmartbot.herokuapp.com/").read()
+    print("HO PINGATO")
 
 def start(bot, update, args, chat_data):
     name = update.message.from_user["first_name"]
@@ -71,22 +93,24 @@ def talk(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text = kernel.respond(update.message.text))
         if 'Yes i was created to search parkings in Amsterdam' in kernel.respond(update.message.text): 
             userHandler.setUserBotActived(update.message.chat_id, False)
-            print("BOT ACTIVED - parking")
             parkingHandler.parking(bot, update)
         elif 'Yes i was created to search electric charge points in Amsterdam' in kernel.respond(update.message.text): 
             userHandler.setUserBotActived(update.message.chat_id, False)
-            print("BOT ACTIVED - chargePoint")
             electricChargePointHandler.chargePoint(bot, update)
+        elif 'Use the following link to access your profile' in kernel.respond(update.message.text): 
+            userHandler.setUserBotActived(update.message.chat_id, False)
+            profile(bot, update)  
     else:
         analyzeText(bot, update)
     
-def profile(bot, update, args, chat_data):
+def profile(bot, update):
     user = userHandler.getUser(update.message.chat_id)
     userHandler.setUserLastCommand(update.message.chat_id, "webappUser")
     cronologyHandler.createCronology(bot, update, user)
     bot.sendMessage(chat_id=update.message.chat_id, 
                     text='<a href="' + WEBAPP + '?chatId=' + str(update.message.chat_id) + '">User Cronology</a>', 
                     parse_mode=telegram.ParseMode.HTML)
+    userHandler.setUserBotActived(update.message.chat_id, True)
       
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
@@ -114,7 +138,6 @@ def analyzeText(bot, update):
         textToAnalyze = update.message.text
         if textToAnalyze=='Find me the closest Parking':
             parkingHandler.parking(bot, update)
-            print("STATO START - textToAnalyze")
     elif utente.lastCommand == "parking":
         textToAnalyze = update.message.text
         if preferenceHandler.checkPreferences(utente, textToAnalyze, bot, update):
@@ -158,7 +181,6 @@ def analyzeText(bot, update):
                 bot.sendMessage(chat_id=update.message.chat_id, text = message )
     elif utente.lastCommand == "parking.result":
         print("sono nel parking.result")
-        #print(utente.lastCommand)
         user = userHandler.getUser(update.message.chat_id)
         parkingHandler.parkingResult(bot, update)
         print(geocode_result)
@@ -224,6 +246,7 @@ def analyzeText(bot, update):
         
 def run():
     updater = Updater(TOKEN)
+    Repeat.repeat(100000000000, 600, pingHeroku)
     choosenPosition = 'posizione'
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -233,7 +256,7 @@ def run():
     dp.add_handler(CommandHandler("parking", parkingHandler.parking))
     dp.add_handler(CommandHandler("chargepoint", electricChargePointHandler.chargePoint))
     dp.add_handler(CommandHandler("talk", talk))
-    dp.add_handler(CommandHandler("profile", profile, pass_args=True, pass_chat_data=True))
+    dp.add_handler(CommandHandler("profile", profile))
     dp.add_handler(MessageHandler([Filters.location], getLocation))
     dp.add_handler(MessageHandler([Filters.text], talk))
     #dp.add_handler(MessageHandler([Filters.text], analyzeText))
@@ -243,6 +266,7 @@ def run():
     # Start the Bot
     updater.start_polling()
     updater.idle()
+    
     
     
 def get_inlineKeyboardButton(bot, update, chat_data):
@@ -266,7 +290,6 @@ def get_url(url):
     response = requests.get(url)
     content = response.content.decode("utf8")
     return content
-
 
 if __name__ == '__main__':
     sys.path.append("C:\\Users\\Geko\\workspace\\smartBot\\smartBot") #Set it to the root of your project

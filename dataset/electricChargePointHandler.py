@@ -112,5 +112,11 @@ def sendMessageForSingleChargePoint(bot, update, index):
     User.objects.filter(chat_id=update.message.chat_id).update(lat=latid, lon=long)
     User.objects.filter(chat_id=update.message.chat_id).update(lastCommand = "chargePoint.afterDetails")
     User.objects.filter(chat_id=update.message.chat_id).update(positionName = reverse_geocode_result[0]['formatted_address'])
-    bot.sendMessage(chat_id=update.message.chat_id, text = 'What do you want to do now?')
+#    bot.sendMessage(chat_id=update.message.chat_id, text = 'What do you want to do now?')
+    btn_keyboard1 = KeyboardButton(text="Find another electric charge point")
+    btn_keyboard2 = KeyboardButton(text="Find closest parking")
+    btn_keyboard3 = KeyboardButton(text="That's all, thanks")
+    custom_keyboard = [[btn_keyboard1],[btn_keyboard2],[btn_keyboard3]]
+    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard, resize_keyboard=True, one_time_keyboard=True)
     userHandler.setUserBotActived(update.message.chat_id, True)
+    bot.sendMessage(chat_id = update.message.chat_id, text="What do you want to do now ?", reply_markup=reply_markup)
