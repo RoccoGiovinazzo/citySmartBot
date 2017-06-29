@@ -27,7 +27,7 @@ SECRET_KEY = 'qiiobvi4f1!h7^3^q_0%@)me5g3k&-wg2ydq#(^fepraf(8h+8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['amsterdamsmartbot.herokuapp.com']
 
 # Application definition
 
@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'smartBot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'smartBot',                      # Or path to database file if using sqlite3.
-        'USER': 'pguser',                      # Not used with sqlite3.
-        'PASSWORD': 'pguser',                  # Not used with sqlite3.
-        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': 'dagoe0s66u30dt',                      # Or path to database file if using sqlite3.
+        'USER': 'qyukhrfwhvvugi',                      # Not used with sqlite3.
+        'PASSWORD': '4aa0ce860091e5e11f45e5576a1727b1bec997228e7da9b9fbaec1529dd350c5',                  # Not used with sqlite3.
+        'HOST': 'ec2-54-221-220-82.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
