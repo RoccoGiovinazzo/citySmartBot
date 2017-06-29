@@ -178,15 +178,16 @@ def render_mpl_table(data, col_width=1.0, row_height=0.625, font_size=10,
             cell.set_width(0.3)
     return ax
 
-def sendMail(sender):
-    you = "lamorte.gerardo@gmail.com"
-    me = "giovinazzorocco@gmail.com"
+def sendMail(name , email, message):
+    staff_1 = "lamorte.gerardo@gmail.com"
+    staff_2 = "giovinazzorocco@gmail.com"
+    me = "smartbotstaff@gmail.com"
     
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
     msg['Subject'] = "Link"
-    msg['From'] = me
-    msg['To'] = you
+    msg['From'] = email
+    msg['To'] = me
     
     # Create the body of the message (a plain-text and an HTML version).
     text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttp://www.python.org"
@@ -215,9 +216,10 @@ def sendMail(sender):
     # Send the message via local SMTP server.
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login('lamorte.gerardo@gmail.com','forzalazio12')
+    s.login('smartbotstaff@gmail.com','lacunacoil')
     # sendmail function takes 3 arguments: sender's address, recipient's address
     # and message to send - here it is sent as one string.
-    s.sendmail(me, you, msg.as_string())
+    s.sendmail(me, staff_1, msg.as_string())
+    s.sendmail(me, staff_2, msg.as_string())
     print("mail sent")
     s.quit()
