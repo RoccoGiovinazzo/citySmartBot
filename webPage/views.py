@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from smartbot import utility
+from . import utility
 
 def home(request):
     if request.method=='POST':
