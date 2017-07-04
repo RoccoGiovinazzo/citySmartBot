@@ -30,7 +30,7 @@ TOKEN = "343706215:AAEaTYl_qXHsPxKMwC5rXRnrnESKEuThT2Y"
 gmaps = googlemaps.Client(key='AIzaSyCHw4CGzrZOpOleKM3KCPPMI7jJV_MDkDI')
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 WEBAPP = "https://amsterdamsmartbot.herokuapp.com//accounts/login"
-#WEBAPP = "https://amsterdamsmartbot.herokuapp.com//accounts/login"
+TUTORIAL = "https://amsterdamsmartbot.herokuapp.com/"
 choosenPosition = ''
 lastUpdate = ""
 #builtins.botActived =True
@@ -115,7 +115,7 @@ def tutorial(bot, update):
     userHandler.setUserLastCommand(update.message.chat_id, "tutorial")
     cronologyHandler.createCronology(bot, update, user)
     bot.sendMessage(chat_id=update.message.chat_id, 
-                    text='<a href="' + WEBAPP + '">Open Tutorial</a>', 
+                    text='<a href="' + TUTORIAL + '">Open Tutorial</a>', 
                     parse_mode=telegram.ParseMode.HTML)
     userHandler.setUserBotActived(update.message.chat_id, True)
       
