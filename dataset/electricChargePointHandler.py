@@ -15,6 +15,8 @@ import main
 import numpy as np
 from persistence import cronologyHandler, userHandler
 from persistence.preferenceHandler import addPreferencesKeyboard
+from dataset import electricChargePointScraping
+from difflib import SequenceMatcher
 import utility
 
 
@@ -94,7 +96,11 @@ def sendMessageForSingleChargePoint(bot, update, index):
     # utente.lastCommand = "location"
     r = urllib.request.urlopen(urld)
     data = json.loads(r.read().decode(r.info().get_param('charset') or 'utf-8'))
+    reverse_geocode_result = main.gmaps.reverse_geocode((data['features'][int(index)]['geometry']['coordinates'][1], data['features'][int(index)]['geometry']['coordinates'][0]))
+    addressName = reverse_geocode_result[0]['address_components'][1]['short_name'] + " " + reverse_geocode_result[0]['address_components'][0]['short_name']
+    parkingCost = checkElectricChargeCost(addressName)
     message = "<b>The charge point is: </b>" + data['features'][int(index)]['properties']['title'] + "\n"
+    
 #     try:
 #         message += "<b>Free short parkings: </b>" + str(data['features'][int(index)]['properties']['layers']['parking.garage']['data']['FreeSpaceShort']) + "\n"
 #     except KeyError:
@@ -103,8 +109,11 @@ def sendMessageForSingleChargePoint(bot, update, index):
 #         message += "<b>Free long parkings: </b>" + str(data['features'][int(index)]['properties']['layers']['parking.garage']['data']['FreeSpaceLong']) + "\n"
 #     except KeyError:
 #        message += "<b>Free long parkings: </b>" + '---' + "\n"
-    reverse_geocode_result = main.gmaps.reverse_geocode((data['features'][int(index)]['geometry']['coordinates'][1], data['features'][int(index)]['geometry']['coordinates'][0]))
-    message += "<b>The address of the charge point is: </b>" + reverse_geocode_result[0]['formatted_address']
+    
+    electricChargeCost = checkElectricChargeCost(addressName)
+    message += "<b>The address of the charge point is: </b>" + reverse_geocode_result[0]['formatted_address'] + "\n"
+    if parkingCost is not "":
+        message += "<b>Cost: </b>" + parkingCost 
     bot.sendLocation(update.message.chat_id, data['features'][int(index)]['geometry']['coordinates'][1], data['features'][int(index)]['geometry']['coordinates'][0]) 
     bot.sendMessage(chat_id=update.message.chat_id, text = message, parse_mode='HTML')
     latid = data['features'][int(index)]['geometry']['coordinates'][1]
@@ -120,3 +129,17 @@ def sendMessageForSingleChargePoint(bot, update, index):
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard, resize_keyboard=True, one_time_keyboard=True)
     userHandler.setUserBotActived(update.message.chat_id, True)
     bot.sendMessage(chat_id = update.message.chat_id, text="What do you want to do now ?", reply_markup=reply_markup)
+    
+def checkElectricChargeCost(parkingName):
+    cost = ""
+    listOfCost = electricChargePointScraping.getElectricChargeCost()
+    for singleParking in listOfCost:
+        ratio = similar(singleParking[0], parkingName)
+        if ratio >= 0.90:
+            print(ratio)
+            cost = singleParking[1]
+            return cost 
+    return cost
+
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()
