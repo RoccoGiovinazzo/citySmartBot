@@ -109,6 +109,15 @@ def profile(bot, update):
                     text='<a href="' + WEBAPP + '?chatId=' + str(update.message.chat_id) + '">User Cronology</a>', 
                     parse_mode=telegram.ParseMode.HTML)
     userHandler.setUserBotActived(update.message.chat_id, True)
+    
+def tutorial(bot, update):
+    user = userHandler.getUser(update.message.chat_id)
+    userHandler.setUserLastCommand(update.message.chat_id, "tutorial")
+    cronologyHandler.createCronology(bot, update, user)
+    bot.sendMessage(chat_id=update.message.chat_id, 
+                    text='<a href="' + WEBAPP + '">Open Tutorial</a>', 
+                    parse_mode=telegram.ParseMode.HTML)
+    userHandler.setUserBotActived(update.message.chat_id, True)
       
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
@@ -255,6 +264,7 @@ def run():
     dp.add_handler(CommandHandler("chargepoint", electricChargePointHandler.chargePoint))
     dp.add_handler(CommandHandler("talk", talk))
     dp.add_handler(CommandHandler("profile", profile))
+    dp.add_handler(CommandHandler("tutorial", tutorial))
     dp.add_handler(MessageHandler([Filters.location], getLocation))
     dp.add_handler(MessageHandler([Filters.text], talk))
     #dp.add_handler(MessageHandler([Filters.text], analyzeText))
