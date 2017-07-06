@@ -97,7 +97,13 @@ def talk(bot, update):
             electricChargePointHandler.chargePoint(bot, update)
         elif 'Use the following link to access your profile' in kernel.respond(update.message.text): 
             userHandler.setUserBotActived(update.message.chat_id, False)
-            profile(bot, update)  
+            profile(bot, update) 
+        elif 'Use the following link to open the home page' in kernel.respond(update.message.text): 
+            userHandler.setUserBotActived(update.message.chat_id, False)
+            profile(bot, update)
+        elif 'Use the following link to open tutorial page' in kernel.respond(update.message.text): 
+            userHandler.setUserBotActived(update.message.chat_id, False)
+            profile(bot, update) 
     else:
         analyzeText(bot, update)
     
@@ -107,6 +113,24 @@ def profile(bot, update):
     cronologyHandler.createCronology(bot, update, user)
     bot.sendMessage(chat_id=update.message.chat_id, 
                     text='<a href="' + WEBAPP + '?chatId=' + str(update.message.chat_id) + '">User Cronology</a>', 
+                    parse_mode=telegram.ParseMode.HTML)
+    userHandler.setUserBotActived(update.message.chat_id, True)
+    
+def homePage(bot, update):
+    user = userHandler.getUser(update.message.chat_id)
+    userHandler.setUserLastCommand(update.message.chat_id, "Home Page")
+    cronologyHandler.createCronology(bot, update, user)
+    bot.sendMessage(chat_id=update.message.chat_id, 
+                    text='<a href="' + TUTORIAL +  '">Open Home Page</a>', 
+                    parse_mode=telegram.ParseMode.HTML)
+    userHandler.setUserBotActived(update.message.chat_id, True)
+    
+def tutorial(bot, update):
+    user = userHandler.getUser(update.message.chat_id)
+    userHandler.setUserLastCommand(update.message.chat_id, "Tutorial")
+    cronologyHandler.createCronology(bot, update, user)
+    bot.sendMessage(chat_id=update.message.chat_id, 
+                    text='<a href="' + TUTORIAL +  '">Open Tutorial</a>', 
                     parse_mode=telegram.ParseMode.HTML)
     userHandler.setUserBotActived(update.message.chat_id, True)
     
