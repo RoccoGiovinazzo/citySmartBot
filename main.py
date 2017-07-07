@@ -100,10 +100,10 @@ def talk(bot, update):
             profile(bot, update) 
         elif 'Use the following link to open the home page' in kernel.respond(update.message.text): 
             userHandler.setUserBotActived(update.message.chat_id, False)
-            profile(bot, update)
+            homePage(bot, update)
         elif 'Use the following link to open tutorial page' in kernel.respond(update.message.text): 
             userHandler.setUserBotActived(update.message.chat_id, False)
-            profile(bot, update) 
+            tutorial(bot, update)
     else:
         analyzeText(bot, update)
     
@@ -131,15 +131,6 @@ def tutorial(bot, update):
     cronologyHandler.createCronology(bot, update, user)
     bot.sendMessage(chat_id=update.message.chat_id, 
                     text='<a href="' + TUTORIAL +  '">Open Tutorial</a>', 
-                    parse_mode=telegram.ParseMode.HTML)
-    userHandler.setUserBotActived(update.message.chat_id, True)
-    
-def tutorial(bot, update):
-    user = userHandler.getUser(update.message.chat_id)
-    userHandler.setUserLastCommand(update.message.chat_id, "tutorial")
-    cronologyHandler.createCronology(bot, update, user)
-    bot.sendMessage(chat_id=update.message.chat_id, 
-                    text='<a href="' + TUTORIAL + '">Open Tutorial</a>', 
                     parse_mode=telegram.ParseMode.HTML)
     userHandler.setUserBotActived(update.message.chat_id, True)
       
