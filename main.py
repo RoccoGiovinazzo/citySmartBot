@@ -103,6 +103,7 @@ def talk(bot, update):
             homePage(bot, update)
         elif 'Use the following link to open tutorial page' in kernel.respond(update.message.text): 
             userHandler.setUserBotActived(update.message.chat_id, False)
+            print("WE ARE IN TUTORIAL AIML")
             tutorial(bot, update)
     else:
         analyzeText(bot, update)
