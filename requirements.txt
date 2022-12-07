@@ -5,7 +5,7 @@ appdirs==1.4.3
 async-timeout==1.2.0
 beautifulsoup4==4.6.0
 bs4==0.0.1
-certifi==2017.1.23
+certifi==2022.12.7
 chardet==2.3.0
 codegen==1.0
 colorama==0.3.7
